@@ -1,0 +1,113 @@
+---
+/*
+ * =========================================================================
+ * POST LIST — THE SWAP POINT FOR THE FUTURE TREE VISUALIZATION
+ * =========================================================================
+ * This is the ONLY component used by /blog/index.astro to render posts.
+ * When you're ready to build the tree / branching visualization:
+ *
+ *   1. Create src/components/TreeVisualization.jsx (React) or .svelte, etc.
+ *   2. Install the framework integration: `npx astro add react`
+ *   3. In src/pages/blog/index.astro, replace:
+ *        <PostList posts={posts} />
+ *      with:
+ *        <TreeVisualization client:load posts={posts} />
+ *
+ * The `posts` prop shape is intentionally stable:
+ *   { slug, title, description, pubDate, sphere, tags }[]
+ *
+ * See FUTURE.md for the full architectural plan.
+ * =========================================================================
+ */
+
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+
+const sorted = [...posts].sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const dateFormatter = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<ul class="post-list">
+  {
+    sorted.map((post) => (
+      <li class="post-item">
+        <a href={`/blog/${post.slug}`} class="post-link">
+          <h2 class="post-title">{post.data.title}</h2>
+          <p class="post-meta ui muted">
+            <time datetime={post.data.pubDate.toISOString()}>
+              {dateFormatter.format(post.data.pubDate)}
+            </time>
+            <span class="sep">·</span>
+            <span class="sphere">{post.data.sphere}</span>
+          </p>
+          <p class="post-desc">{post.data.description}</p>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-item {
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .post-item:first-child {
+    padding-top: 0.5rem;
+  }
+
+  .post-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .post-link:hover .post-title {
+    color: var(--color-accent);
+  }
+
+  .post-title {
+    margin: 0 0 0.35rem;
+    font-size: 1.35rem;
+    transition: color 150ms ease;
+  }
+
+  .post-meta {
+    margin: 0 0 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .sep {
+    margin: 0 0.5rem;
+    color: var(--color-rule);
+  }
+
+  .sphere {
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+  }
+
+  .post-desc {
+    margin: 0;
+    color: var(--color-ink-soft);
+  }
+</style>

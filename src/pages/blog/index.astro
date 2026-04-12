@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+
+// Fetch posts once and hand them to whichever presentation
+// component you want. Today that's <PostList />. Tomorrow it'll
+// be <TreeVisualization client:load />. See FUTURE.md.
+const posts = (await getCollection('blog')).filter(
+  (post) => import.meta.env.DEV || !post.data.draft,
+);
+---
+
+<BaseLayout
+  title="Writing"
+  description="Essays and notes."
+>
+  <section class="intro">
+    <h1>Writing</h1>
+    <p class="lede">
+      Essays, notes, and half-finished thoughts. Grouped by sphere.
+    </p>
+  </section>
+
+  <!--
+    The <PostList> is intentionally the ONLY presentation component on
+    this page. Swap it for a custom visualization later without touching
+    data fetching or layout. See FUTURE.md.
+  -->
+  <PostList posts={posts} />
+</BaseLayout>
+
+<style>
+  .intro {
+    margin-bottom: 2rem;
+  }
+
+  .lede {
+    color: var(--color-ink-soft);
+    margin: 0;
+  }
+</style>

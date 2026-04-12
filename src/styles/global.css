@@ -1,0 +1,181 @@
+/*
+ * Global styles.
+ * Design intent: personal essay site, not corporate landing page.
+ * - Serif for body, sans for UI chrome
+ * - Generous whitespace
+ * - Restrained palette: ink, paper, one accent
+ */
+
+:root {
+  --color-ink: #1a1a1a;
+  --color-ink-soft: #4a4a4a;
+  --color-ink-mute: #8a8a8a;
+  --color-paper: #fafaf7;
+  --color-paper-warm: #f3f1ea;
+  --color-rule: #e4e2db;
+  --color-accent: #8b4513;
+
+  --font-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua',
+    Georgia, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
+
+  --measure: 34rem;
+  --measure-wide: 48rem;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.75rem;
+  --space-lg: 3rem;
+  --space-xl: 5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-ink: #ece9e0;
+    --color-ink-soft: #b8b5ab;
+    --color-ink-mute: #7a786f;
+    --color-paper: #16160f;
+    --color-paper-warm: #1e1e16;
+    --color-rule: #2a2a20;
+    --color-accent: #d4a373;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--color-ink);
+  background: var(--color-paper);
+}
+
+main {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md) var(--space-xl);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  margin: 0 0 var(--space-sm);
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: var(--space-lg) 0 var(--space-sm);
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin: var(--space-md) 0 var(--space-xs);
+}
+
+p {
+  margin: 0 0 var(--space-sm);
+}
+
+a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-rule);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 150ms ease, color 150ms ease;
+}
+
+a:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--color-rule);
+  margin: var(--space-lg) 0;
+}
+
+blockquote {
+  margin: var(--space-md) 0;
+  padding: 0 0 0 var(--space-md);
+  border-left: 2px solid var(--color-rule);
+  color: var(--color-ink-soft);
+  font-style: italic;
+}
+
+code {
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--color-paper-warm);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+pre {
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  overflow-x: auto;
+  padding: var(--space-sm);
+  background: var(--color-paper-warm);
+  border-radius: 4px;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Small, unobtrusive UI chrome uses sans-serif */
+.ui {
+  font-family: var(--font-sans);
+}
+
+.muted {
+  color: var(--color-ink-mute);
+  font-size: 0.9rem;
+}
+
+/* Utility container for wider blocks (e.g., blog listing) */
+.wide {
+  max-width: var(--measure-wide);
+}
+
+@media (max-width: 600px) {
+  main {
+    padding: var(--space-md) var(--space-sm) var(--space-lg);
+  }
+
+  body {
+    font-size: 1.0625rem;
+  }
+}
