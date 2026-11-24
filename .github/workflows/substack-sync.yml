@@ -1,0 +1,32 @@
+# Checks Substack every hour and puts the newest posts on the Writing cards.
+# A change is committed to main, which Netlify then publishes automatically.
+# To run it right away: Actions tab → "Sync Substack posts" → Run workflow.
+name: Sync Substack posts
+
+on:
+  schedule:
+    - cron: "17 * * * *"   # every hour, at :17
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: substack-sync
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update Writing cards from Substack
+        run: python3 .github/scripts/sync_substack.py
+
+      - name: Commit and push if anything changed
+        run: |
+          if git diff --quiet; then echo "No new posts."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Add latest Substack posts to Writing section"
+          git push

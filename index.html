@@ -107,6 +107,8 @@
   .card p{margin-top:12px;color:var(--ink-soft)}
   .card .go{margin-top:auto;padding-top:28px;display:flex;justify-content:space-between;align-items:center;font-size:.74rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--forest)}
   .card .go i{font-style:normal;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(47,74,59,.3);transition:background .3s,color .3s,transform .3s}
+  .all-posts{display:inline-block;margin-top:36px;font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--forest);text-decoration:none;border-bottom:1px solid rgba(47,74,59,.3);padding-bottom:4px;transition:border-color .25s}
+  .all-posts:hover{border-color:var(--forest)}
   .card:hover .go i{background:var(--forest);color:var(--cream);transform:rotate(-45deg)}
 
   /* About / Projects — clay */
@@ -206,6 +208,8 @@
         <div class="sub">Developing situational awareness of our times</div>
       </div>
       <div class="cards reveal">
+        <!-- Cards between these markers are filled in automatically from Substack every hour. -->
+        <!-- SUBSTACK:START -->
         <a class="card" href="https://jacobzhang.substack.com/p/hello-world" target="_blank" rel="noopener" data-substack>
           <span class="num">01</span>
           <h3>Hello, world</h3>
@@ -224,7 +228,9 @@
           <p>I have even more things to say</p>
           <span class="go">Read on Substack <i>→</i></span>
         </a>
+        <!-- SUBSTACK:END -->
       </div>
+      <a class="all-posts reveal" href="https://jacobzhang.substack.com/" target="_blank" rel="noopener">All posts on Substack →</a>
     </div>
   </section>
 
