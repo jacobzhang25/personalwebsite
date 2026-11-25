@@ -1,5 +1,6 @@
-# Plain HTML site: there is nothing to build.
-# This overrides the old Astro build settings saved in the Netlify dashboard.
+# Plain HTML site, no framework. The build step just copies the site into
+# dist/, the folder Netlify publishes. This overrides the old Astro build
+# settings saved in the Netlify dashboard.
 [build]
-  command = "echo 'Static site, no build needed'"
-  publish = "."
+  command = "rm -rf dist && mkdir dist && cp -R index.html videos dist/"
+  publish = "dist"
