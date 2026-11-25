@@ -1,0 +1,5 @@
+# Plain HTML site: there is nothing to build.
+# This overrides the old Astro build settings saved in the Netlify dashboard.
+[build]
+  command = "echo 'Static site, no build needed'"
+  publish = "."
